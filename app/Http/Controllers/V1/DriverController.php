@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Drivers\DestroysDriverRequest;
 use App\Http\Requests\V1\Drivers\StoreDriverRequest;
 use App\Http\Requests\V1\Drivers\UpdateDriverRequest;
 use App\Http\Resources\V1\Drivers\DriverResource;
+use App\Http\Resources\V1\Users\DriverCollection;
 use App\Models\Driver;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -31,13 +32,12 @@ class DriverController extends Controller
         return response()->json([
             'data'=>$drivers,
             'msg'=>[
-                'summary'=>'Peticion realizada exitosamente',
-                'detail'=>'Peticion realizada exitosamente',
+                'summary'=>'El conductor a sido eliminado',
+                'detail'=>'Conductor eliminado',
                 'code'=>'201'
             ]
         ],201
         );
-
 
     }
 
@@ -52,8 +52,8 @@ class DriverController extends Controller
     {
             $driver = new Driver();
 
-            $user = User::find($request->user['id']);
-            $driver->user()->associate($user);
+
+            $driver->user()->associate($request->user_id);
 
             $driver->photo = $request->photo;
             $driver->license = $request->license;
@@ -80,7 +80,13 @@ class DriverController extends Controller
     //--------------> Consultar 1
     public function show(Driver $driver)
     {
-        return new DriverResource($driver);
+        return (new DriverResource($driver))->additional([
+        'msg' => [
+            'summary' => 'success',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);;
     }
 
     /**
@@ -92,11 +98,18 @@ class DriverController extends Controller
      */
     public function update(UpdateDriverRequest $request, Driver $driver)
     {
-        $driver->photo = $request->photo;
-        $driver->license = $request->license;
+        return "update";
+        $driver->photo = $request->input("photo");
+        $driver->license = $request->input("license");
         $driver->save();
 
-        return new DriverResource($driver);
+        return (new DriverResource($driver))->additional([
+        'msg' => [
+            'summary' => 'success',
+            'detail' => '',
+            'code' => '200'
+        ]
+    ]);;
 
     }
     /**

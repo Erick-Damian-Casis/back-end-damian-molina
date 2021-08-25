@@ -28,9 +28,9 @@ Route::apiResource('drivers.cars', CarController::class);
 Route::apiResource('addresses', AddressController::class);
 Route::apiResource('addresses.travels', TravelController::class);
 
-Route::middleware('verify_available_drivers')->get('available',function (){
+/*Route::middleware('verify_available_drivers')->get('available',function (){
     return "pude ingresar";
-});
+});*/
 
 
 

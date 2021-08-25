@@ -24,8 +24,8 @@ class UpdateDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo'=>['required','min:5','max:20'],
-            'license'=>['required','min:5','max:20'],
+            'photo'=>['required','min:0','max:10'],
+            'license'=>['required','min:0','max:20'],
         ];
     }
 

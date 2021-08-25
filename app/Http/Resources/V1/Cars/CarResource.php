@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Cars;
 
+use App\Http\Resources\V1\Drivers\DriverResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CarResource extends JsonResource
@@ -16,7 +17,6 @@ class CarResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'photo'=>$this->photo,
             'available'=>$this->license,
             'description'=>$this->license,
         ];
